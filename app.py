@@ -40,7 +40,14 @@ hr { border-color:var(--line)!important; }
 .member-photo { display:block; width:100%; height:205px; object-fit:cover; object-position:center 22%; border-radius:12px; border:1px solid #31577e; margin-bottom:1rem; background:#132b49; }
 .profile-photo { display:block; width:100%; height:auto; max-height:460px; object-fit:contain; object-position:center top; border-radius:12px; border:1px solid #31577e; margin-bottom:1rem; background:#071326; }
 .member-name { font-family:'Manrope',sans-serif; font-size:1.05rem; font-weight:800; margin-bottom:.3rem; }
-.role-pill { display:inline-block; border:1px solid #2c70b9; background:#12345a; color:#a9d5ff; padding:.28rem .6rem; border-radius:999px; font-size:.75rem; margin:.25rem 0 .65rem; }
+.profile-heading { text-align:center; padding:.15rem .25rem .85rem; border-bottom:1px solid #1b3553; margin-bottom:.35rem; }
+.profile-name { font-family:'Manrope',sans-serif; font-size:1.15rem; font-weight:800; line-height:1.35; color:#edf5ff; margin:.65rem 0 .5rem; overflow-wrap:anywhere; }
+.role-pill { display:inline-flex; align-items:center; justify-content:center; max-width:100%; white-space:normal; text-align:center; line-height:1.4; border:1px solid #2c70b9; background:linear-gradient(135deg,#12345a,#102744); color:#a9d5ff; padding:.42rem .8rem; border-radius:999px; font-size:.78rem; font-weight:700; margin:.1rem auto .35rem; box-shadow:0 4px 14px #1676e81a; }
+.profile-photo { margin-bottom:.75rem; }
+.detail-panel .info-line:last-child { border-bottom:0; }
+.member-card { display:flex; flex-direction:column; }
+.member-photo { object-position:center 22%; }
+@media(max-width:700px){.profile-name{font-size:1.05rem}.role-pill{font-size:.74rem}}
 .card-copy { color:#b5c8df; font-size:.88rem; line-height:1.6; }
 .skill-pill { display:inline-block; background:#102b4a; border:1px solid #24496f; color:#b9dcff; padding:.28rem .55rem; border-radius:7px; font-size:.75rem; margin:.18rem .12rem .1rem 0; }
 .project-icon { width:48px;height:48px;border-radius:13px;background:#123b68;border:1px solid #2464a2;display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin-bottom:1rem; }
@@ -235,7 +242,7 @@ elif menu_utama == "📄  CV Individual":
     cv = MEMBERS_CV[pilihan_anggota]
     left,right = st.columns([1,2.4],gap="large")
     with left:
-        st.markdown(f"<div class='detail-panel'><img class='profile-photo' src='{escape(cv['foto'], quote=True)}' alt='Foto {escape(pilihan_anggota, quote=True)}'><div class='member-name' style='font-size:1.25rem'>{escape(pilihan_anggota)}</div><div class='info-line'>⌖ &nbsp; {escape(cv['lokasi'])}</div><div class='info-line'>✉ &nbsp; {escape(cv['email'])}</div><div class='info-line'>☎ &nbsp; {escape(cv['no_telpon'])}</div></div>",unsafe_allow_html=True)
+        st.markdown(f"<div class='detail-panel'><img class='profile-photo' src='{escape(cv['foto'], quote=True)}' alt='Foto {escape(pilihan_anggota, quote=True)}'><div class='profile-heading'><div class='profile-name'>{escape(pilihan_anggota)}</div><div class='role-pill'>{escape(cv['peran'])}</div></div><div class='info-line'>⌖ &nbsp; {escape(cv['lokasi'])}</div><div class='info-line'>✉ &nbsp; {escape(cv['email'])}</div><div class='info-line'>☎ &nbsp; {escape(cv['no_telpon'])}</div></div>",unsafe_allow_html=True)
     with right:
         st.markdown(f"<div class='eyebrow'>RINGKASAN</div><h2>{escape(pilihan_anggota)}</h2><p style='color:#b9cce2;line-height:1.8'>{escape(cv['ringkasan'])}</p>",unsafe_allow_html=True)
         st.markdown("<div class='section-head'><h3>Keahlian</h3></div>",unsafe_allow_html=True)
