@@ -1,7 +1,7 @@
 import streamlit as st
 
 # ==========================================
-# 1. KONFIGURASI HALAMAN & CSS MODERN TERBARU
+# 1. KONFIGURASI HALAMAN & CUSTOM CSS
 # ==========================================
 st.set_page_config(
     page_title="Digital E-CV | Tim JBAW Corps",
@@ -12,55 +12,19 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-        /* Tema Gelap Elegan dengan Teks Terang Berkontras Tinggi */
         .stApp {
-            background-color: #0f172a;
-            color: #f8fafc;
+            background-color: #0b0f19;
+            color: #f3f4f6;
         }
-        
-        /* Sidebar Styling */
         [data-testid="stSidebar"] {
-            background-color: #1e293b;
-            border-right: 1px solid #334155;
+            background-color: #111827;
+            border-right: 1px solid #1f2937;
         }
-        [data-testid="stSidebar"] span, [data-testid="stSidebar"] p, [data-testid="stSidebar"] div {
-            color: #f1f5f9 !important;
+        h1, h2, h3, h4, h5, h6, p, span {
+            color: #f9fafb !important;
         }
-
-        /* Perbaikan Warna Teks Utama agar Terang dan Jelas */
-        h1, h2, h3, h4, h5, h6, p, span, label, li {
-            color: #f8fafc !important;
-        }
-        
-        /* Kotak Kartu Personil & Proyek yang Rata dan Simetris */
-        .person-card {
-            background-color: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-            transition: transform 0.2s ease;
-        }
-        .person-card:hover {
-            transform: translateY(-4px);
-            border-color: #3b82f6;
-        }
-
-        /* Foto Profil Bentuk Kotak Modern Melengkung (Bukan Lingkaran) */
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 16px !important;
-            object-fit: cover !important;
-            border: 2px solid #3b82f6 !important;
-            margin-bottom: 12px;
-        }
-
-        /* Styling Tombol */
         .stButton > button {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -245,17 +209,31 @@ if menu_utama == "🏠 Beranda Tim":
     )
     
     st.markdown("### 👥 Daftar Personil Tim")
-    cols = st.columns(3)
-    for idx, (nama, data) in enumerate(MEMBERS_CV.items()):
-        with cols[idx % 3]:
-            # Menggunakan struktur kartu HTML yang seragam dan rapi
-            st.markdown(f"""
-                <div class="person-card">
-                    <img src="{data['foto']}" class="profile-img">
-                    <h4 style="margin: 8px 0 4px 0; color: #f8fafc;">{nama}</h4>
-                    <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">{data['peran']}</p>
-                </div>
-            """, unsafe_allow_html=True)
+    
+    # Menggunakan st.container(border=True) agar tampil rapi dan simetris secara otomatis
+    names = list(MEMBERS_CV.keys())
+    
+    # Baris pertama (3 orang)
+    cols1 = st.columns(3)
+    for i in range(3):
+        nama = names[i]
+        data = MEMBERS_CV[nama]
+        with cols1[i]:
+            with st.container(border=True):
+                st.image(data["foto"], use_container_width=True)
+                st.markdown(f"#### {nama}")
+                st.caption(data["peran"])
+
+    # Baris kedua (2 orang)
+    cols2 = st.columns(2)
+    for i in range(3, 5):
+        nama = names[i]
+        data = MEMBERS_CV[nama]
+        with cols2[i - 3]:
+            with st.container(border=True):
+                st.image(data["foto"], use_container_width=True)
+                st.markdown(f"#### {nama}")
+                st.caption(data["peran"])
 
 elif menu_utama == "📄 Lihat CV Individual":
     st.markdown("# 📄 Kurikulum Vitae (CV) Individual Anggota")
@@ -272,7 +250,7 @@ elif menu_utama == "📄 Lihat CV Individual":
 
     col_foto, col_biodata = st.columns([1, 3], gap="large")
     with col_foto:
-        st.image(cv["foto"], width=200)
+        st.image(cv["foto"], use_container_width=True)
         st.markdown(f"📍 **Lokasi:** {cv['lokasi']}")
         st.markdown(f"✉️ **Email:** {cv['email']}")
         st.markdown(f"📞 **Telepon:** {cv['no_telpon']}")
@@ -298,7 +276,7 @@ elif menu_utama == "📄 Lihat CV Individual":
     st.markdown("---")
     st.markdown("#### 💼 Pengalaman & Aktivitas")
     for exp in cv["pengalaman"]:
-        with st.container():
+        with st.container(border=True):
             st.markdown(f"**{exp['posisi']}** | *{exp['institusi']}*")
             st.caption(f"🗓️ Periode: {exp['tahun']}")
             st.write(exp["deskripsi"])
@@ -306,12 +284,14 @@ elif menu_utama == "📄 Lihat CV Individual":
     st.markdown("---")
     col_edu, col_cert = st.columns(2)
     with col_edu:
-        st.markdown("#### 🎓 Pendidikan")
-        st.write(cv["pendidikan"])
+        with st.container(border=True):
+            st.markdown("#### 🎓 Pendidikan")
+            st.write(cv["pendidikan"])
     with col_cert:
-        st.markdown("#### 📜 Sertifikasi")
-        for cert in cv["sertifikasi"]:
-            st.markdown(f"- 🏅 {cert}")
+        with st.container(border=True):
+            st.markdown("#### 📜 Sertifikasi")
+            for cert in cv["sertifikasi"]:
+                st.markdown(f"- 🏅 {cert}")
 
 elif menu_utama == "🚀 Proyek Tim":
     st.markdown("# 🚀 Portofolio Proyek Tim")
@@ -319,13 +299,10 @@ elif menu_utama == "🚀 Proyek Tim":
     st.markdown("---")
 
     for proj in PROJECTS_TEAM:
-        st.markdown(f"""
-            <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 16px;">
-                <h3 style="margin-top: 0; color: #60a5fa;">📁 {proj['judul']}</h3>
-                <p style="color: #cbd5e1;">{proj['deskripsi']}</p>
-                <p style="margin-bottom: 0; color: #94a3b8;"><strong>Teknologi:</strong> <code>{proj['tech']}</code></p>
-            </div>
-        """, unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown(f"### 📁 {proj['judul']}")
+            st.write(proj["deskripsi"])
+            st.markdown(f"**Teknologi:** `{proj['tech']}`")
 
 elif menu_utama == "📬 Kontak":
     st.markdown("# 📬 Hubungi Tim JBAW Corps")
