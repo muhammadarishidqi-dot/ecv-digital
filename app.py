@@ -37,7 +37,8 @@ hr { border-color:var(--line)!important; }
 .section-head { margin:2rem 0 1rem; }
 .member-card,.project-card,.detail-panel { background:linear-gradient(160deg,#102541,#0a192d); border:1px solid #1d3a5e; border-radius:18px; padding:1.15rem; height:100%; transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease; }
 .member-card:hover,.project-card:hover { transform:translateY(-4px); border-color:#338fff; box-shadow:0 15px 34px #00000025; }
-.member-photo { width:100%; height:205px; object-fit:cover; border-radius:12px; border:1px solid #31577e; margin-bottom:1rem; background:#132b49; }
+.member-photo { display:block; width:100%; height:205px; object-fit:cover; object-position:center 22%; border-radius:12px; border:1px solid #31577e; margin-bottom:1rem; background:#132b49; }
+.profile-photo { display:block; width:100%; height:auto; max-height:460px; object-fit:contain; object-position:center top; border-radius:12px; border:1px solid #31577e; margin-bottom:1rem; background:#071326; }
 .member-name { font-family:'Manrope',sans-serif; font-size:1.05rem; font-weight:800; margin-bottom:.3rem; }
 .role-pill { display:inline-block; border:1px solid #2c70b9; background:#12345a; color:#a9d5ff; padding:.28rem .6rem; border-radius:999px; font-size:.75rem; margin:.25rem 0 .65rem; }
 .card-copy { color:#b5c8df; font-size:.88rem; line-height:1.6; }
@@ -215,8 +216,11 @@ if menu_utama == "🏠  Beranda Tim":
     cols = st.columns(3, gap="medium")
     for i,(nama,data) in enumerate(MEMBERS_CV.items()):
         with cols[i%3]:
-            skills = ''.join(f"<span class='skill-pill'>{escape(skill)}</span>" for skill in data['hard_skills'][:4])
-            st.markdown(f"<div class='member-card'><img class='member-photo' src='{escape(data['foto'], quote=True)}' alt='Foto {escape(nama, quote=True)}'><div class='member-name'>{escape(nama)}</div><span class='role-pill'>{escape(data['peran'])}</span><div class='card-copy'>{escape(data['ringkasan'])}</div><div style='margin-top:.8rem'>{skills}</div></div>",unsafe_allow_html=True)
+            # Beranda dibuat fokus pada foto saja; jabatan, deskripsi, dan daftar skill disembunyikan.
+            st.markdown(
+                f"<div class='member-card' style='padding:.8rem'><img class='member-photo' style='height:260px;margin-bottom:0' src='{escape(data['foto'], quote=True)}' alt='Foto anggota {escape(nama, quote=True)}'></div>",
+                unsafe_allow_html=True,
+            )
             if st.button("Lihat CV →", key=f"member_{i}", use_container_width=True):
                 st.session_state["selected_member"] = nama
                 st.session_state["selected_page"] = "CV Individual"
@@ -231,7 +235,7 @@ elif menu_utama == "📄  CV Individual":
     cv = MEMBERS_CV[pilihan_anggota]
     left,right = st.columns([1,2.4],gap="large")
     with left:
-        st.markdown(f"<div class='detail-panel'><img class='member-photo' style='height:auto;max-height:360px' src='{escape(cv['foto'], quote=True)}' alt='Foto {escape(pilihan_anggota, quote=True)}'><div class='member-name' style='font-size:1.25rem'>{escape(pilihan_anggota)}</div><span class='role-pill'>{escape(cv['peran'])}</span><div class='info-line'>⌖ &nbsp; {escape(cv['lokasi'])}</div><div class='info-line'>✉ &nbsp; {escape(cv['email'])}</div><div class='info-line'>☎ &nbsp; {escape(cv['no_telpon'])}</div></div>",unsafe_allow_html=True)
+        st.markdown(f"<div class='detail-panel'><img class='profile-photo' src='{escape(cv['foto'], quote=True)}' alt='Foto {escape(pilihan_anggota, quote=True)}'><div class='member-name' style='font-size:1.25rem'>{escape(pilihan_anggota)}</div><div class='info-line'>⌖ &nbsp; {escape(cv['lokasi'])}</div><div class='info-line'>✉ &nbsp; {escape(cv['email'])}</div><div class='info-line'>☎ &nbsp; {escape(cv['no_telpon'])}</div></div>",unsafe_allow_html=True)
     with right:
         st.markdown(f"<div class='eyebrow'>RINGKASAN</div><h2>{escape(pilihan_anggota)}</h2><p style='color:#b9cce2;line-height:1.8'>{escape(cv['ringkasan'])}</p>",unsafe_allow_html=True)
         st.markdown("<div class='section-head'><h3>Keahlian</h3></div>",unsafe_allow_html=True)
@@ -244,7 +248,8 @@ elif menu_utama == "📄  CV Individual":
             for skill in cv["soft_skills"]: st.markdown(f"<span class='skill-pill'>{escape(skill)}</span>",unsafe_allow_html=True)
     st.markdown("<div class='section-head'><div class='eyebrow'>PERJALANAN PROFESIONAL</div><h2>Pengalaman & Aktivitas</h2></div>",unsafe_allow_html=True)
     for exp in cv["pengalaman"]:
-        st.markdown(f"<div class='detail-panel'><h3>{escape(exp['posisi'])}</h3><div style='color:#73baff;font-weight:600'>{escape(exp['institusi'])} · {escape(exp['tahun'])}</div><p style='color:#b9cce2;line-height:1.7;margin-bottom:0'>{escape(exp['deskripsi'])}</p></div>",unsafe_allow_html=True)
+        # Informasi jabatan tidak ditampilkan; institusi, periode, dan uraian pengalaman tetap ada.
+        st.markdown(f"<div class='detail-panel'><div style='color:#73baff;font-weight:600'>{escape(exp['institusi'])} · {escape(exp['tahun'])}</div><p style='color:#b9cce2;line-height:1.7;margin-bottom:0'>{escape(exp['deskripsi'])}</p></div>",unsafe_allow_html=True)
     x,y=st.columns(2,gap="medium")
     with x:
         cert_edu = f"<div class='detail-panel'><div class='eyebrow'>PENDIDIKAN</div><h3>🎓 Pendidikan</h3><p class='card-copy'>{escape(cv['pendidikan'])}</p></div>"
