@@ -1,7 +1,7 @@
 import streamlit as st
 
 # ==========================================
-# 1. KONFIGURASI HALAMAN & CUSTOM CSS
+# 1. KONFIGURASI HALAMAN & UI/UX SUPERIOR
 # ==========================================
 st.set_page_config(
     page_title="Digital E-CV | Tim JBAW Corps",
@@ -10,29 +10,98 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Custom CSS untuk Grid System yang Simetris & UI Modern
 st.markdown("""
     <style>
+        /* Warna Dasar & Teks Terang */
         .stApp {
-            background-color: #0b0f19;
-            color: #f3f4f6;
+            background-color: #0b1120;
+            color: #f8fafc;
         }
         [data-testid="stSidebar"] {
-            background-color: #111827;
-            border-right: 1px solid #1f2937;
+            background-color: #0f172a;
+            border-right: 1px solid #1e293b;
         }
-        h1, h2, h3, h4, h5, h6, p, span {
-            color: #f9fafb !important;
+        h1, h2, h3, h4, h5, h6, p, span, li {
+            color: #f1f5f9 !important;
         }
-        .stButton > button {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
+
+        /* --- SISTEM GRID UNTUK KOTAK SAMA RATA --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
-        .stButton > button:hover {
-            opacity: 0.9;
+
+        /* Desain Kotak Profil / Proyek (UI Modern) */
+        .modern-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 100%; /* Memaksa semua kotak memiliki tinggi yang persis sama */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .modern-card:hover {
+            transform: translateY(-8px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Desain Foto Kotak Bersudut Halus (Squircle) */
+        .card-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 3px solid #3b82f6;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Tipografi dalam Kotak */
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: #ffffff;
+        }
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Desain Kotak Proyek */
+        .project-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+        }
+        .project-tech {
+            background-color: #0f172a;
+            color: #3b82f6;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-family: monospace;
+            border: 1px solid #1d4ed8;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -172,12 +241,12 @@ MEMBERS_CV = {
 PROJECTS_TEAM = [
     {
         "judul": "Digital Team E-CV & Portfolio (Streamlit)",
-        "deskripsi": "Platform portofolio kolaboratif berbasis Python Streamlit dengan fitur tampilan CV individual 5 personil.",
-        "tech": "Python, Streamlit, Git"
+        "deskripsi": "Platform portofolio kolaboratif berbasis Python Streamlit dengan fitur tampilan CV individual 5 personil yang terintegrasi secara seamless.",
+        "tech": "Python, Streamlit, HTML/CSS"
     },
     {
         "judul": "Sistem Informasi Peta Jalan ETPD",
-        "deskripsi": "Aplikasi web monitoring dan penilaian elektronifikasi transaksi pemerintah daerah.",
+        "deskripsi": "Aplikasi web monitoring dan penilaian elektronifikasi transaksi pemerintah daerah dengan fitur multi-role otorisasi dan validasi dokumen.",
         "tech": "Laravel, PHP 8.2, MySQL"
     }
 ]
@@ -210,30 +279,18 @@ if menu_utama == "🏠 Beranda Tim":
     
     st.markdown("### 👥 Daftar Personil Tim")
     
-    # Menggunakan st.container(border=True) agar tampil rapi dan simetris secara otomatis
-    names = list(MEMBERS_CV.keys())
-    
-    # Baris pertama (3 orang)
-    cols1 = st.columns(3)
-    for i in range(3):
-        nama = names[i]
-        data = MEMBERS_CV[nama]
-        with cols1[i]:
-            with st.container(border=True):
-                st.image(data["foto"], use_container_width=True)
-                st.markdown(f"#### {nama}")
-                st.caption(data["peran"])
-
-    # Baris kedua (2 orang)
-    cols2 = st.columns(2)
-    for i in range(3, 5):
-        nama = names[i]
-        data = MEMBERS_CV[nama]
-        with cols2[i - 3]:
-            with st.container(border=True):
-                st.image(data["foto"], use_container_width=True)
-                st.markdown(f"#### {nama}")
-                st.caption(data["peran"])
+    # Render HTML Grid System (Memastikan Semua Kotak Sama Rata)
+    grid_html = '<div class="grid-container">'
+    for nama, data in MEMBERS_CV.items():
+        grid_html += f"""
+        <div class="modern-card">
+            <img src="{data['foto']}" class="card-img">
+            <p class="card-title">{nama}</p>
+            <p class="card-subtitle">{data['peran']}</p>
+        </div>
+        """
+    grid_html += '</div>'
+    st.markdown(grid_html, unsafe_allow_html=True)
 
 elif menu_utama == "📄 Lihat CV Individual":
     st.markdown("# 📄 Kurikulum Vitae (CV) Individual Anggota")
@@ -250,7 +307,8 @@ elif menu_utama == "📄 Lihat CV Individual":
 
     col_foto, col_biodata = st.columns([1, 3], gap="large")
     with col_foto:
-        st.image(cv["foto"], use_container_width=True)
+        st.markdown(f'<img src="{cv["foto"]}" style="width: 100%; border-radius: 20px; border: 3px solid #3b82f6; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">', unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
         st.markdown(f"📍 **Lokasi:** {cv['lokasi']}")
         st.markdown(f"✉️ **Email:** {cv['email']}")
         st.markdown(f"📞 **Telepon:** {cv['no_telpon']}")
@@ -298,11 +356,18 @@ elif menu_utama == "🚀 Proyek Tim":
     st.markdown("Daftar karya aplikasi yang dikembangkan bersama oleh tim JBAW Corps.")
     st.markdown("---")
 
+    # Render Grid System untuk Proyek (Sama rata)
+    proj_html = '<div class="grid-container">'
     for proj in PROJECTS_TEAM:
-        with st.container(border=True):
-            st.markdown(f"### 📁 {proj['judul']}")
-            st.write(proj["deskripsi"])
-            st.markdown(f"**Teknologi:** `{proj['tech']}`")
+        proj_html += f"""
+        <div class="project-card">
+            <h3 style="color: #60a5fa; margin-top: 0; margin-bottom: 10px;">📁 {proj['judul']}</h3>
+            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px;">{proj['deskripsi']}</p>
+            <span class="project-tech">{proj['tech']}</span>
+        </div>
+        """
+    proj_html += '</div>'
+    st.markdown(proj_html, unsafe_allow_html=True)
 
 elif menu_utama == "📬 Kontak":
     st.markdown("# 📬 Hubungi Tim JBAW Corps")
