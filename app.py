@@ -1,7 +1,7 @@
 import streamlit as st
 
 # ==========================================
-# 1. KONFIGURASI HALAMAN & CUSTOM CSS MODERN
+# 1. KONFIGURASI HALAMAN & CSS MODERN TERBARU
 # ==========================================
 st.set_page_config(
     page_title="Digital E-CV | Tim JBAW Corps",
@@ -10,39 +10,55 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS untuk tampilan modern, latar belakang gelap elegan, dan foto profil lingkaran
 st.markdown("""
     <style>
-        /* Mengubah latar belakang utama aplikasi */
+        /* Tema Gelap Elegan dengan Teks Terang Berkontras Tinggi */
         .stApp {
-            background-color: #0e1117;
-            color: #f0f2f6;
+            background-color: #0f172a;
+            color: #f8fafc;
         }
         
-        /* Styling Sidebar agar selaras */
+        /* Sidebar Styling */
         [data-testid="stSidebar"] {
-            background-color: #161b22;
-            border-right: 1px solid #30363d;
+            background-color: #1e293b;
+            border-right: 1px solid #334155;
+        }
+        [data-testid="stSidebar"] span, [data-testid="stSidebar"] p, [data-testid="stSidebar"] div {
+            color: #f1f5f9 !important;
         }
 
-        /* Styling Foto Profil: Otomatis Lingkaran Sempurna dengan Border Bercahaya */
-        img {
-            border-radius: 50% !important;
+        /* Perbaikan Warna Teks Utama agar Terang dan Jelas */
+        h1, h2, h3, h4, h5, h6, p, span, label, li {
+            color: #f8fafc !important;
+        }
+        
+        /* Kotak Kartu Personil & Proyek yang Rata dan Simetris */
+        .person-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+        .person-card:hover {
+            transform: translateY(-4px);
+            border-color: #3b82f6;
+        }
+
+        /* Foto Profil Bentuk Kotak Modern Melengkung (Bukan Lingkaran) */
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 16px !important;
             object-fit: cover !important;
-            border: 3px solid #3b82f6 !important;
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+            border: 2px solid #3b82f6 !important;
+            margin-bottom: 12px;
         }
 
-        /* Kartu Kontainer Modern */
-        div.st-key-card, div[data-testid="stVerticalBlock"] > div[style*="border"] {
-            background-color: #1f2937 !important;
-            border: 1px solid #374151 !important;
-            border-radius: 12px !important;
-            padding: 20px !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Tombol Utama */
+        /* Styling Tombol */
         .stButton > button {
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             color: white;
@@ -50,11 +66,9 @@ st.markdown("""
             border-radius: 8px;
             font-weight: 600;
             padding: 0.5rem 1rem;
-            transition: all 0.3s ease;
         }
         .stButton > button:hover {
             opacity: 0.9;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
         }
     </style>
 """, unsafe_allow_html=True)
@@ -73,8 +87,8 @@ MEMBERS_CV = {
         "peran": "Ketua Umum",
         "foto": "https://github.com/muhammadarishidqi-dot/ecv-digital/raw/080a977a158eb0fac621ea2f7764457fbd3394af/WhatsApp%20Image%202026-10-17%20at%2020.11.14.jpeg",
         "email": "muhammadarishidqi@gmail.com",
-        "no telpon": "081384569849",
-        "lokasi": "Jakarta,Indonesia",
+        "no_telpon": "081384569849",
+        "lokasi": "Jakarta, Indonesia",
         "ringkasan": (
             "Mahasiswa Sistem Informasi dan pengembang web yang berfokus pada pembangunan aplikasi "
             "berbasis backend & frontend menggunakan PHP (Laravel), pengelolaan database MySQL, serta perancangan "
@@ -97,7 +111,7 @@ MEMBERS_CV = {
         "peran": "Wakil Ketua Umum",
         "foto": "https://github.com/muhammadarishidqi-dot/ecv-digital/raw/080a977a158eb0fac621ea2f7764457fbd3394af/WhatsApp%20Image%202026-10-17%20at%2018.26.45.jpeg",
         "email": "dwisaputra030204@gmail.com",
-        "no telpon": "0881024853110",
+        "no_telpon": "0881024853110",
         "lokasi": "Jakarta, Indonesia",
         "ringkasan": (
             "Seorang wakil ketua yang memiliki ketertarikan mendalam pada infrastruktur jaringan dan analitik sistem. "
@@ -121,8 +135,8 @@ MEMBERS_CV = {
         "peran": "Sekretaris Jendral",
         "foto": "https://github.com/muhammadarishidqi-dot/ecv-digital/raw/080a977a158eb0fac621ea2f7764457fbd3394af/Screenshot%202026-10-17%20200917.png",
         "email": "fakhrihamdani30@gmail.com",
-        "no telpon": "088292106089",
-        "lokasi": "Padang,Indonesia",
+        "no_telpon": "088292106089",
+        "lokasi": "Padang, Indonesia",
         "ringkasan": (
             "Berperan sebagai pengembang perangkat lunak dengan spesialisasi sebagai fullstack developer yang handal. "
             "Selain mengelola administrasi kesekretariatan dan dokumentasi proyek, ia aktif membangun dan merancang "
@@ -145,7 +159,7 @@ MEMBERS_CV = {
         "peran": "Wakil Pertimbangan Ketua",
         "foto": "https://github.com/muhammadarishidqi-dot/ecv-digital/raw/080a977a158eb0fac621ea2f7764457fbd3394af/Screenshot%202026-10-17%20200823.png",
         "email": "Arief96.ar@gmail.com",
-        "no telpon": "081245711785",
+        "no_telpon": "081245711785",
         "lokasi": "Tasikmalaya, Indonesia",
         "ringkasan": (
             "Seorang profesional kreatif yang memadukan keahlian teknis pengolahan basis data dan perancangan antarmuka visual. "
@@ -169,7 +183,7 @@ MEMBERS_CV = {
         "peran": "Wakil Pertimbangan Ketua II",
         "foto": "https://github.com/muhammadarishidqi-dot/ecv-digital/raw/080a977a158eb0fac621ea2f7764457fbd3394af/WhatsApp%20Image%202026-10-17%20at%2018.59.46.jpeg",
         "email": "pieroariessandy2004@gmail.com",
-        "no telpon": "085711783214",
+        "no_telpon": "085711783214",
         "lokasi": "Banten, Indonesia",
         "ringkasan": (
             "Memiliki kompetensi kuat dalam pengembangan web modern, perancangan struktur basis data yang optimal, "
@@ -234,10 +248,14 @@ if menu_utama == "🏠 Beranda Tim":
     cols = st.columns(3)
     for idx, (nama, data) in enumerate(MEMBERS_CV.items()):
         with cols[idx % 3]:
-            with st.container():
-                st.image(data["foto"], width=130)
-                st.markdown(f"#### {nama}")
-                st.caption(data["peran"])
+            # Menggunakan struktur kartu HTML yang seragam dan rapi
+            st.markdown(f"""
+                <div class="person-card">
+                    <img src="{data['foto']}" class="profile-img">
+                    <h4 style="margin: 8px 0 4px 0; color: #f8fafc;">{nama}</h4>
+                    <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">{data['peran']}</p>
+                </div>
+            """, unsafe_allow_html=True)
 
 elif menu_utama == "📄 Lihat CV Individual":
     st.markdown("# 📄 Kurikulum Vitae (CV) Individual Anggota")
@@ -257,6 +275,7 @@ elif menu_utama == "📄 Lihat CV Individual":
         st.image(cv["foto"], width=200)
         st.markdown(f"📍 **Lokasi:** {cv['lokasi']}")
         st.markdown(f"✉️ **Email:** {cv['email']}")
+        st.markdown(f"📞 **Telepon:** {cv['no_telpon']}")
     with col_biodata:
         st.markdown(f"## {pilihan_anggota}")
         st.markdown(f"### `{cv['peran']}`")
@@ -300,10 +319,13 @@ elif menu_utama == "🚀 Proyek Tim":
     st.markdown("---")
 
     for proj in PROJECTS_TEAM:
-        with st.container():
-            st.markdown(f"### 📁 {proj['judul']}")
-            st.write(proj["deskripsi"])
-            st.markdown(f"**Teknologi:** `{proj['tech']}`")
+        st.markdown(f"""
+            <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 16px;">
+                <h3 style="margin-top: 0; color: #60a5fa;">📁 {proj['judul']}</h3>
+                <p style="color: #cbd5e1;">{proj['deskripsi']}</p>
+                <p style="margin-bottom: 0; color: #94a3b8;"><strong>Teknologi:</strong> <code>{proj['tech']}</code></p>
+            </div>
+        """, unsafe_allow_html=True)
 
 elif menu_utama == "📬 Kontak":
     st.markdown("# 📬 Hubungi Tim JBAW Corps")
