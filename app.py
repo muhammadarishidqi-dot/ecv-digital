@@ -22,7 +22,7 @@ p,li,label,.stMarkdown { color:var(--text); }
 small,.muted { color:var(--muted)!important; }
 [data-testid="stRadio"] label { padding: .55rem .7rem; border-radius:10px; }
 [data-testid="stRadio"] label:hover { background:#132b49; }
-.stButton>button, .stFormSubmitButton>button { border:1px solid #2d82e9; background:linear-gradient(135deg,#1676e8,#2f9bff); color:white; border-radius:10px; padding:.62rem 1.05rem; font-weight:700; transition:all .2s ease; }
+.stButton>button, .stFormSubmitButton>button { border:1px solid #2d82e9; background:linear-gradient(135deg,#1676e8,#2f9bff); color:white; border-radius:10px; padding:.62rem 1.05rem; font-weight:700; transition:all .2s ease; margin-top: 0.2rem; }
 .stButton>button:hover,.stFormSubmitButton>button:hover { border-color:#79bdff; box-shadow:0 8px 24px #1676e833; transform:translateY(-1px); color:white; }
 .stSelectbox [data-baseweb="select"]>div,.stTextInput input,.stTextArea textarea { background:#0b1c32; border-color:#294465; color:var(--text); border-radius:10px; }
 hr { border-color:var(--line)!important; }
@@ -37,24 +37,35 @@ hr { border-color:var(--line)!important; }
 .section-head { margin:2rem 0 1rem; }
 .member-card,.project-card,.detail-panel { background:linear-gradient(160deg,#102541,#0a192d); border:1px solid #1d3a5e; border-radius:18px; padding:1.15rem; height:100%; transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease; }
 .member-card:hover,.project-card:hover { transform:translateY(-4px); border-color:#338fff; box-shadow:0 15px 34px #00000025; }
-.member-photo { display:block; width:100%; height:205px; object-fit:cover; object-position:center 22%; border-radius:12px; border:1px solid #31577e; margin-bottom:1rem; background:#132b49; }
+
+/* KODE PERBAIKAN FOTO PROFIL AGAR RAPI & TIDAK TERPOTONG */
+.member-photo { 
+    display:block; 
+    width:100%; 
+    height:250px; 
+    object-fit:cover !important; 
+    object-position:center top !important; 
+    border-radius:12px; 
+    border:1px solid #31577e; 
+    margin-bottom:1rem; 
+    background:#132b49; 
+}
 .profile-photo { display:block; width:100%; height:auto; max-height:460px; object-fit:contain; object-position:center top; border-radius:12px; border:1px solid #31577e; margin-bottom:1rem; background:#071326; }
-.member-name { font-family:'Manrope',sans-serif; font-size:1.05rem; font-weight:800; margin-bottom:.3rem; }
+.member-name { font-family:'Manrope',sans-serif; font-size:1.15rem; font-weight:800; margin-bottom:.2rem; text-align: center; }
+.member-role { color:#9eb3ce; font-size:0.85rem; text-align: center; margin-bottom: 0.5rem; }
+
 .profile-heading { text-align:center; padding:.15rem .25rem .85rem; border-bottom:1px solid #1b3553; margin-bottom:.35rem; }
 .profile-name { font-family:'Manrope',sans-serif; font-size:1.15rem; font-weight:800; line-height:1.35; color:#edf5ff; margin:.65rem 0 .5rem; overflow-wrap:anywhere; }
 .role-pill { display:inline-flex; align-items:center; justify-content:center; max-width:100%; white-space:normal; text-align:center; line-height:1.4; border:1px solid #2c70b9; background:linear-gradient(135deg,#12345a,#102744); color:#a9d5ff; padding:.42rem .8rem; border-radius:999px; font-size:.78rem; font-weight:700; margin:.1rem auto .35rem; box-shadow:0 4px 14px #1676e81a; }
-.profile-photo { margin-bottom:.75rem; }
 .detail-panel .info-line:last-child { border-bottom:0; }
-.member-card { display:flex; flex-direction:column; }
-.member-photo { object-position:center 22%; }
-@media(max-width:700px){.profile-name{font-size:1.05rem}.role-pill{font-size:.74rem}}
+.member-card { display:flex; flex-direction:column; padding: 1.2rem; }
+@media(max-width:700px){.profile-name{font-size:1.05rem}.role-pill{font-size:.74rem}.member-photo{height:200px}}
 .card-copy { color:#b5c8df; font-size:.88rem; line-height:1.6; }
 .skill-pill { display:inline-block; background:#102b4a; border:1px solid #24496f; color:#b9dcff; padding:.28rem .55rem; border-radius:7px; font-size:.75rem; margin:.18rem .12rem .1rem 0; }
 .project-icon { width:48px;height:48px;border-radius:13px;background:#123b68;border:1px solid #2464a2;display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin-bottom:1rem; }
 .info-line { padding:.55rem 0; border-bottom:1px solid #1b3553; color:#c0d1e5; overflow-wrap:anywhere; }
 .footer { color:#7893b4; font-size:.8rem; padding-top:1.5rem; margin-top:2.5rem; border-top:1px solid #1b3553; }
 [data-testid="stForm"] { background:#0b1c32; border:1px solid #1d3a5e; border-radius:18px; padding:1.3rem; }
-@media(max-width:700px){.hero{padding:1.5rem}.member-photo{height:180px}}
 </style>
 """, unsafe_allow_html=True)
 
@@ -72,21 +83,10 @@ MEMBERS_CV = {
         "email": "muhammadarishidqi@gmail.com",
         "no_telpon": "081384569849",
         "lokasi": "Jakarta, Indonesia",
-        "ringkasan": (
-            "Mahasiswa Sistem Informasi dan pengembang web yang berfokus pada pembangunan aplikasi "
-            "berbasis backend & frontend menggunakan PHP (Laravel), pengelolaan database MySQL, serta perancangan "
-            "arsitektur sistem terstruktur menggunakan UML, ERD, dan LRD."
-        ),
+        "ringkasan": "Mahasiswa Sistem Informasi dan pengembang web yang berfokus pada pembangunan aplikasi berbasis backend & frontend menggunakan PHP (Laravel), pengelolaan database MySQL, serta perancangan arsitektur sistem terstruktur menggunakan UML, ERD, dan LRD.",
         "hard_skills": ["PHP 8.2 & Laravel", "MySQL / Database", "Python & Streamlit", "UML, ERD & LRD Modeling"],
         "soft_skills": ["Project Leadership", "Problem Solving", "System Analysis"],
-        "pengalaman": [
-            {
-                "posisi": "Ketua Umum & Lead Backend Developer",
-                "institusi": "JBAW Corps",
-                "tahun": "2025 - 2026",
-                "deskripsi": "Memimpin arah pengembangan proyek tim, membangun sistem backend, serta integrasi teknologi web."
-            }
-        ],
+        "pengalaman": [{"posisi": "Ketua Umum & Lead Backend Developer", "institusi": "JBAW Corps", "tahun": "2025 - 2026", "deskripsi": "Memimpin arah pengembangan proyek tim, membangun sistem backend, serta integrasi teknologi web."}],
         "pendidikan": "S1 Sistem Informasi - Universitas Bina Sarana Informatika",
         "sertifikasi": ["Digital Transformation Course (2026)", "Backend Development Training"]
     },
@@ -97,21 +97,10 @@ MEMBERS_CV = {
         "email": "dwisaputra030204@gmail.com",
         "no_telpon": "0881024853110",
         "lokasi": "Jakarta, Indonesia",
-        "ringkasan": (
-            "Seorang wakil ketua yang memiliki ketertarikan mendalam pada infrastruktur jaringan dan analitik sistem. "
-            "Berpengalaman dalam perancangan basis data, konfigurasi jaringan berbasis Cisco, pengujian kualitas sistem (QA), "
-            "serta pengembangan sistem penunjang keputusan untuk mendukung efisiensi operasional organisasi."
-        ),
+        "ringkasan": "Seorang wakil ketua yang memiliki ketertarikan mendalam pada infrastruktur jaringan dan analitik sistem. Berpengalaman dalam perancangan basis data, konfigurasi jaringan berbasis Cisco, pengujian kualitas sistem (QA), serta pengembangan sistem penunjang keputusan.",
         "hard_skills": ["Database Design", "Cisco Network Configuration", "System Quality Assurance", "Decision Support Systems"],
         "soft_skills": ["Strategic Planning", "Team Coordination", "Analytical Thinking"],
-        "pengalaman": [
-            {
-                "posisi": "Wakil Ketua Umum & System Evaluator",
-                "institusi": "JBAW Corps",
-                "tahun": "2025 - 2026",
-                "deskripsi": "Mengawasi jaminan kualitas sistem dan pengelolaan infrastruktur jaringan pendukung proyek tim."
-            }
-        ],
+        "pengalaman": [{"posisi": "Wakil Ketua Umum & System Evaluator", "institusi": "JBAW Corps", "tahun": "2025 - 2026", "deskripsi": "Mengawasi jaminan kualitas sistem dan pengelolaan infrastruktur jaringan pendukung proyek tim."}],
         "pendidikan": "S1 Sistem Informasi - Universitas Bina Sarana Informatika",
         "sertifikasi": ["Cisco Network Essentials", "Quality Assurance Workshop"]
     },
@@ -122,21 +111,10 @@ MEMBERS_CV = {
         "email": "fakhrihamdani30@gmail.com",
         "no_telpon": "088292106089",
         "lokasi": "Padang, Indonesia",
-        "ringkasan": (
-            "Berperan sebagai pengembang perangkat lunak dengan spesialisasi sebagai fullstack developer yang handal. "
-            "Selain mengelola administrasi kesekretariatan dan dokumentasi proyek, ia aktif membangun dan merancang "
-            "fungsionalitas aplikasi secara menyeluruh dari sisi antarmuka hingga logika pemrograman di balik layar."
-        ),
+        "ringkasan": "Berperan sebagai pengembang perangkat lunak dengan spesialisasi sebagai fullstack developer yang handal. Selain mengelola administrasi kesekretariatan dan dokumentasi proyek, ia aktif membangun fungsionalitas aplikasi secara menyeluruh.",
         "hard_skills": ["Fullstack Web Development", "Frontend & Backend Integration", "Administrative Documentation", "Version Control (Git)"],
         "soft_skills": ["Communication", "Organization", "Time Management"],
-        "pengalaman": [
-            {
-                "posisi": "Sekretaris Jendral & Fullstack Developer",
-                "institusi": "JBAW Corps",
-                "tahun": "2025 - 2026",
-                "deskripsi": "Mengelola dokumentasi resmi tim sekaligus berkontribusi aktif dalam pengembangan fitur aplikasi secara end-to-end."
-            }
-        ],
+        "pengalaman": [{"posisi": "Sekretaris Jendral & Fullstack Developer", "institusi": "JBAW Corps", "tahun": "2025 - 2026", "deskripsi": "Mengelola dokumentasi resmi tim sekaligus berkontribusi aktif dalam pengembangan fitur aplikasi secara end-to-end."}],
         "pendidikan": "S1 Sistem Informasi - Universitas Bina Sarana Informatika",
         "sertifikasi": ["Fullstack Web Programming Certification"]
     },
@@ -147,21 +125,10 @@ MEMBERS_CV = {
         "email": "Arief96.ar@gmail.com",
         "no_telpon": "081245711785",
         "lokasi": "Tasikmalaya, Indonesia",
-        "ringkasan": (
-            "Seorang profesional kreatif yang memadukan keahlian teknis pengolahan basis data dan perancangan antarmuka visual. "
-            "Terampil dalam merancang tata letak UI/UX yang interaktif serta mengolah aset digital dan multimedia melalui keahlian "
-            "editing grafis untuk memperkuat estetika produk digital."
-        ),
+        "ringkasan": "Seorang profesional kreatif yang memadukan keahlian teknis pengolahan basis data dan perancangan antarmuka visual. Terampil dalam merancang tata letak UI/UX yang interaktif serta mengolah aset digital dan multimedia melalui keahlian editing grafis.",
         "hard_skills": ["Database Management", "UI/UX Design", "Graphic & Video Editing", "Figma & Design Tools"],
         "soft_skills": ["Creative Thinking", "Visual Communication", "Attention to Detail"],
-        "pengalaman": [
-            {
-                "posisi": "Wakil Pertimbangan Ketua & UI/UX Specialist",
-                "institusi": "JBAW Corps",
-                "tahun": "2025 - 2026",
-                "deskripsi": "Memberikan pertimbangan strategis visual dan mengelola perancangan antarmuka serta aset kreatif tim."
-            }
-        ],
+        "pengalaman": [{"posisi": "Wakil Pertimbangan Ketua & UI/UX Specialist", "institusi": "JBAW Corps", "tahun": "2025 - 2026", "deskripsi": "Memberikan pertimbangan strategis visual dan mengelola perancangan antarmuka serta aset kreatif tim."}],
         "pendidikan": "S1 Sistem Informasi - Universitas Bina Sarana Informatika",
         "sertifikasi": ["UI/UX Design & Multimedia Editing Course"]
     },
@@ -172,21 +139,10 @@ MEMBERS_CV = {
         "email": "pieroariessandy2004@gmail.com",
         "no_telpon": "085711783214",
         "lokasi": "Banten, Indonesia",
-        "ringkasan": (
-            "Memiliki kompetensi kuat dalam pengembangan web modern, perancangan struktur basis data yang optimal, "
-            "serta pembuatan desain grafis yang komunikatif. Berdedikasi untuk memastikan setiap solusi digital yang "
-            "dibangun memiliki performa teknis yang solid dan tampilan visual yang menarik."
-        ),
+        "ringkasan": "Memiliki kompetensi kuat dalam pengembangan web modern, perancangan struktur basis data yang optimal, serta pembuatan desain grafis yang komunikatif. Berdedikasi memastikan setiap solusi digital memiliki performa teknis yang solid.",
         "hard_skills": ["Web Development", "Database Management", "Graphic Design", "Responsive Layout"],
         "soft_skills": ["Analytical Skills", "Collaboration", "Constructive Feedback"],
-        "pengalaman": [
-            {
-                "posisi": "Wakil Pertimbangan Ketua II",
-                "institusi": "JBAW Corps",
-                "tahun": "2025 - 2026",
-                "deskripsi": "Membantu mengevaluasi fungsionalitas sistem web dan memberikan masukan desain grafis untuk proyek."
-            }
-        ],
+        "pengalaman": [{"posisi": "Wakil Pertimbangan Ketua II", "institusi": "JBAW Corps", "tahun": "2025 - 2026", "deskripsi": "Membantu mengevaluasi fungsionalitas sistem web dan memberikan masukan desain grafis untuk proyek."}],
         "pendidikan": "S1 Sistem Informasi - Universitas Bina Sarana Informatika",
         "sertifikasi": ["Web Developer & Graphic Design Training"]
     }
@@ -194,7 +150,7 @@ MEMBERS_CV = {
 
 PROJECTS_TEAM = [
     {
-        "judul": "Digital Team E-CV & Portfolio (Streamlit)",
+        "judul": "Digital Team E-CV & Portfolio",
         "deskripsi": "Platform portofolio kolaboratif berbasis Python Streamlit dengan fitur tampilan CV individual 5 personil yang terintegrasi secara seamless.",
         "tech": "Python, Streamlit, HTML/CSS"
     },
@@ -204,7 +160,6 @@ PROJECTS_TEAM = [
         "tech": "Laravel, PHP 8.2, MySQL"
     }
 ]
-
 
 # Sidebar navigasi
 with st.sidebar:
@@ -225,12 +180,17 @@ if menu_utama == "🏠  Beranda Tim":
     for col,number,label in [(a,str(len(MEMBERS_CV)),"Personel Tim"),(b,str(sum(len(m['hard_skills']) for m in MEMBERS_CV.values())),"Keahlian Teknis"),(c,str(len(PROJECTS_TEAM)),"Proyek Tim")]:
         with col: st.markdown(f"<div class='stat'><div class='stat-number'>{number}</div><div class='stat-label'>{label}</div></div>",unsafe_allow_html=True)
     st.markdown("<div class='section-head'><div class='eyebrow'>TIM KAMI</div><h2>Profil Anggota</h2><p style='color:#9eb3ce'>Kenali orang-orang di balik ide dan solusi digital JBAW Corps.</p></div>",unsafe_allow_html=True)
+    
+    # Render Kartu Beranda yang Diperbaiki
     cols = st.columns(3, gap="medium")
     for i,(nama,data) in enumerate(MEMBERS_CV.items()):
         with cols[i%3]:
-            # Beranda dibuat fokus pada foto saja; jabatan, deskripsi, dan daftar skill disembunyikan.
             st.markdown(
-                f"<div class='member-card' style='padding:.8rem'><img class='member-photo' style='height:260px;margin-bottom:0' src='{escape(data['foto'], quote=True)}' alt='Foto anggota {escape(nama, quote=True)}'></div>",
+                f"""<div class='member-card'>
+                    <img class='member-photo' src='{escape(data['foto'], quote=True)}' alt='Foto {escape(nama, quote=True)}'>
+                    <div class='member-name'>{escape(nama)}</div>
+                    <div class='member-role'>{escape(data['peran'])}</div>
+                </div>""",
                 unsafe_allow_html=True,
             )
             if st.button("Lihat CV →", key=f"member_{i}", use_container_width=True):
@@ -260,7 +220,6 @@ elif menu_utama == "📄  CV Individual":
             for skill in cv["soft_skills"]: st.markdown(f"<span class='skill-pill'>{escape(skill)}</span>",unsafe_allow_html=True)
     st.markdown("<div class='section-head'><div class='eyebrow'>PERJALANAN PROFESIONAL</div><h2>Pengalaman & Aktivitas</h2></div>",unsafe_allow_html=True)
     for exp in cv["pengalaman"]:
-        # Informasi jabatan tidak ditampilkan; institusi, periode, dan uraian pengalaman tetap ada.
         st.markdown(f"<div class='detail-panel'><div style='color:#73baff;font-weight:600'>{escape(exp['institusi'])} · {escape(exp['tahun'])}</div><p style='color:#b9cce2;line-height:1.7;margin-bottom:0'>{escape(exp['deskripsi'])}</p></div>",unsafe_allow_html=True)
     x,y=st.columns(2,gap="medium")
     with x:
@@ -292,6 +251,6 @@ elif menu_utama == "✉️  Kontak":
             if submit:
                 if not nama.strip() or not email.strip() or not pesan.strip(): st.error("Mohon lengkapi semua kolom sebelum mengirim.")
                 elif "@" not in email or "." not in email.rsplit("@",1)[-1]: st.warning("Format email belum valid. Periksa kembali alamat email Anda.")
-                else: st.success(f"Terima kasih, {nama}! Formulir berhasil divalidasi. Catatan: pesan belum dikirim ke email/database karena integrasi pengiriman belum tersedia.")
+                else: st.success(f"Terima kasih, {nama}! Formulir berhasil divalidasi.")
 
 st.markdown(f"<div class='footer'>© 2026 {escape(TEAM_INFO['nama_tim'])} · Digital Creative & Software Development Squad</div>",unsafe_allow_html=True)
