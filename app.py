@@ -67,6 +67,7 @@ TEAM_INFO = {
 MEMBERS_CV = {
     "Muhammad Ari Shidqi": {
         "peran": "Ketua Umum",
+        "nim": "19230724",
         "foto": "https://github.com/muhammadarishidqi-dot/ecv-digital/raw/080a977a158eb0fac621ea2f7764457fbd3394af/WhatsApp%20Image%202026-10-17%20at%2020.11.14.jpeg",
         "email": "muhammadarishidqi@gmail.com",
         "no_telpon": "081384569849",
@@ -91,6 +92,7 @@ MEMBERS_CV = {
     },
     "Dwi Saputra": {
         "peran": "Wakil Ketua Umum",
+        "nim": "19230609",
         "foto": "https://github.com/muhammadarishidqi-dot/ecv-digital/raw/080a977a158eb0fac621ea2f7764457fbd3394af/WhatsApp%20Image%202026-10-17%20at%2018.26.45.jpeg",
         "email": "dwisaputra030204@gmail.com",
         "no_telpon": "0881024853110",
@@ -115,6 +117,7 @@ MEMBERS_CV = {
     },
     "Fakhri Hamdani": {
         "peran": "Sekretaris Jendral",
+        "nim": "19230654",
         "foto": "https://github.com/muhammadarishidqi-dot/ecv-digital/raw/080a977a158eb0fac621ea2f7764457fbd3394af/Screenshot%202026-10-17%20200917.png",
         "email": "fakhrihamdani30@gmail.com",
         "no_telpon": "088292106089",
@@ -139,6 +142,7 @@ MEMBERS_CV = {
     },
     "Arip Rahman": {
         "peran": "Wakil Pertimbangan Ketua",
+        "nim": "19230830",
         "foto": "https://github.com/muhammadarishidqi-dot/ecv-digital/raw/080a977a158eb0fac621ea2f7764457fbd3394af/Screenshot%202026-10-17%20200823.png",
         "email": "Arief96.ar@gmail.com",
         "no_telpon": "081245711785",
@@ -163,6 +167,7 @@ MEMBERS_CV = {
     },
     "Pierro Ariessandy": {
         "peran": "Wakil Pertimbangan Ketua II",
+        "nim": "19231225",
         "foto": "https://github.com/muhammadarishidqi-dot/ecv-digital/raw/080a977a158eb0fac621ea2f7764457fbd3394af/WhatsApp%20Image%202026-10-17%20at%2018.59.46.jpeg",
         "email": "pieroariessandy2004@gmail.com",
         "no_telpon": "085711783214",
@@ -242,7 +247,7 @@ elif menu_utama == "📄  CV Individual":
     cv = MEMBERS_CV[pilihan_anggota]
     left,right = st.columns([1,2.4],gap="large")
     with left:
-        st.markdown(f"<div class='detail-panel'><img class='profile-photo' src='{escape(cv['foto'], quote=True)}' alt='Foto {escape(pilihan_anggota, quote=True)}'><div class='profile-heading'><div class='profile-name'>{escape(pilihan_anggota)}</div><div class='role-pill'>{escape(cv['peran'])}</div></div><div class='info-line'>⌖ &nbsp; {escape(cv['lokasi'])}</div><div class='info-line'>✉ &nbsp; {escape(cv['email'])}</div><div class='info-line'>☎ &nbsp; {escape(cv['no_telpon'])}</div></div>",unsafe_allow_html=True)
+        st.markdown(f"<div class='detail-panel'><img class='profile-photo' src='{escape(cv['foto'], quote=True)}' alt='Foto {escape(pilihan_anggota, quote=True)}'><div class='profile-heading'><div class='profile-name'>{escape(pilihan_anggota)}</div><div class='role-pill'>{escape(cv['peran'])}</div></div><div class='info-line'>🆔 &nbsp; NIM: {escape(cv['nim'])}</div><div class='info-line'>⌖ &nbsp; {escape(cv['lokasi'])}</div><div class='info-line'>✉ &nbsp; {escape(cv['email'])}</div><div class='info-line'>☎ &nbsp; {escape(cv['no_telpon'])}</div></div>",unsafe_allow_html=True)
     with right:
         st.markdown(f"<div class='eyebrow'>RINGKASAN</div><h2>{escape(pilihan_anggota)}</h2><p style='color:#b9cce2;line-height:1.8'>{escape(cv['ringkasan'])}</p>",unsafe_allow_html=True)
         st.markdown("<div class='section-head'><h3>Keahlian</h3></div>",unsafe_allow_html=True)
